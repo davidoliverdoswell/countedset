@@ -42,4 +42,14 @@ struct CountedSet<Element> where Element: Hashable {
     mutating func remove(_ oldElement: Int) -> Element? {
         return items.remove(at: oldElement)
     }
+    
+    // support subscripting to look up current values
+    // return 0 for any value that is not found.
+    
+    subscript(_ member: Element) -> Int {
+        if items.count <= member.hashValue {
+            return 0
+        }
+        return member.hashValue
+    }
 }
